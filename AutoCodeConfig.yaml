@@ -1,6 +1,6 @@
 ---
 genPolicy: "Create"
-openAPISpec: "http://localhost:4200/v2/api-docs"
+openAPISpec: "http://localhost:8080/v2/api-docs"
 generators:
 - type: "anonymous_invalid"
   assertions:
