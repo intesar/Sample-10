@@ -1,18 +1,18 @@
 ---
 genPolicy: "Create"
-openAPISpec: "http://localhost:8080/v2/api-docs"
+openAPISpec: "https://s3.dualstack.us-east-1.amazonaws.com/inindca-api/us-east-1/public-api-v2/swagger-schema/publicapi-v2-latest-internal.json"
 generators:
 - type: "anonymous_invalid"
   assertions:
   - "@StatusCode != 200"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches: []
 - type: "auth_invalid"
   assertions:
   - "@StatusCode != 200"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches: []
@@ -22,7 +22,7 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches:
@@ -30,6 +30,7 @@ generators:
     value: null
     methods: null
     denyRoles: null
+    allowRoles: null
     pathPatterns: null
     resourceSamples: null
     queryParams: null
@@ -40,7 +41,7 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches: []
@@ -50,7 +51,7 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
   database:
     name: "MySQL"
     version: "5.7"
@@ -62,14 +63,14 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches: []
 - type: "rbac"
   assertions:
   - "@StatusCode == 403"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches:
@@ -77,6 +78,7 @@ generators:
     value: null
     methods: "Post, Put, Delete"
     denyRoles: "Writer, Reader"
+    allowRoles: null
     pathPatterns: "/api/v1/orgs/**, /api/v1/accounts/**"
     resourceSamples: null
     queryParams: null
@@ -85,6 +87,7 @@ generators:
     value: null
     methods: "Post, Put, Delete"
     denyRoles: "Reader"
+    allowRoles: null
     pathPatterns: "/api/v1/projects/**, /api/v1/regions/**"
     resourceSamples: null
     queryParams: null
@@ -93,6 +96,7 @@ generators:
     value: null
     methods: "Post, Delete"
     denyRoles: "Collaborator"
+    allowRoles: null
     pathPatterns: "/api/v1/projects/**"
     resourceSamples: null
     queryParams: null
@@ -101,6 +105,7 @@ generators:
     value: null
     methods: "Get, Post, Put, Delete"
     denyRoles: "Other"
+    allowRoles: null
     pathPatterns: "/api/v1/**"
     resourceSamples: null
     queryParams: null
@@ -111,7 +116,7 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches: []
@@ -121,7 +126,7 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches: []
@@ -131,7 +136,7 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches: []
@@ -141,7 +146,7 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
   database: null
   inactive: false
   matches: []
@@ -151,7 +156,49 @@ generators:
   - "@StatusCode != 401"
   - "@StatusCode != 404"
   - "@StatusCode != 500"
-  severity: "Critical"
+  severity: null
+  database: null
+  inactive: false
+  matches: []
+- type: "no_params"
+  assertions:
+  - "@StatusCode == 200"
+  severity: null
+  database: null
+  inactive: false
+  matches: []
+- type: "DDOS"
+  assertions:
+  - "@StatusCode != 401"
+  - "@StatusCode != 404"
+  severity: null
+  database: null
+  inactive: false
+  matches:
+  - name: "pageSize, page_size, maxResults, max_results"
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: null
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+- type: "sql_injection_timebound"
+  assertions:
+  - "@ResponseTime < 7000"
+  - "@StatusCode != 404"
+  severity: null
+  database:
+    name: "MySQL"
+    version: "5.7"
+  inactive: false
+  matches: []
+- type: "negative_number"
+  assertions:
+  - "@StatusCode != 401"
+  - "@StatusCode != 404"
+  severity: null
   database: null
   inactive: false
   matches: []
